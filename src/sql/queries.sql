@@ -46,19 +46,63 @@ ORDER BY total_count ASC;
 
 -- MISSION 4
 -- Your query here: Region con mas especies distintas
+SELECT 
+    regions.name,
+    regions.country,
+    COUNT(DISTINCT species.id) AS total_species
+FROM observations
+JOIN species ON observations.species_id = species.id
+GROUP BY regions.name, regions.country
+ORDER BY total_species DESC
+LIMIT 1;    
+
 
 
 -- MISSION 5
 -- Your query here: Especies observadas con mas frecuencia
+SELECT 
+    species.scientific_name,
+    species.common_name,
+    COUNT(*) AS total_observations
+FROM observations
+JOIN species ON observations.species_id = species.id
+GROUP BY species.id
+ORDER BY total_observations DESC
+LIMIT 5;    
+
 
 
 -- MISSION 6
 -- Your query here: Personas que mas registros de observancion han realizado
+SELECT 
+    observations.observer,
+    COUNT(*) AS total_observations
+FROM observations
+GROUP BY observations.observer
+ORDER BY total_observations DESC
+LIMIT 5;
 
 
 -- MISSION 7
 -- Your query here: Especies que nunca han sido observadas
+SELECT 
+    species.scientific_name,
+    species.common_name
+FROM species
+LEFT JOIN observations ON species.id = observations.species_id
+WHERE observations.species_id IS NULL
+ORDER BY species.scientific_name ASC;   
+
 
 
 -- MISSION 8
 -- Your query here: en que fechas se observaron mas especies diferentes
+SELECT 
+    observation.observation_date,
+    COUNT(DISTINCT observation.species_id) AS distinct_species
+FROM observations
+GROUP BY observation.observation_date
+ORDER BY distinct_species DESC
+LIMIT 10;
+
+-- End of queries.sql
