@@ -18,7 +18,9 @@ FROM observations
 JOIN species ON observations.species_id = species.id
 JOIN regions ON observations.region_id = regions.id
 GROUP BY regions.name, regions.country
-ORDER BY total_species DESC;
+ORDER BY total_species DESC; 
+
+
 
 -- MISSION 2
 -- Your query here;
