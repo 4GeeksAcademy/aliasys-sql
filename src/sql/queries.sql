@@ -9,7 +9,7 @@ SELECT * FROM observations;
 
 
 -- MISSION 1
--- Your query here: Biodiversiadad de cada region. ¿Regiones con mas especies registradas?
+-- Your query here; 
 SELECT 
     regions.name,
     regions.country,
@@ -21,7 +21,7 @@ GROUP BY regions.name, regions.country
 ORDER BY total_species DESC;
 
 -- MISSION 2
--- Your query here: Meses de mayor observacion
+-- Your query here;
 SELECT 
     SUBSTR(observation_date, 6, 2) AS month,
     COUNT(*) AS total
@@ -32,7 +32,7 @@ ORDER BY total DESC;
 
 
 -- MISSION 3
--- Your query here:Especies con pocos individuos registrados.
+-- Your query here;
 SELECT 
     species.scientific_name,
     species.common_name,
@@ -45,21 +45,22 @@ ORDER BY total_count ASC;
 
 
 -- MISSION 4
--- Your query here: Region con mas especies distintas
+-- Your query here;
 SELECT 
     regions.name,
     regions.country,
     COUNT(DISTINCT species.id) AS total_species
 FROM observations
 JOIN species ON observations.species_id = species.id
+JOIN regions ON observations.region_id = regions.id
 GROUP BY regions.name, regions.country
 ORDER BY total_species DESC
-LIMIT 1;    
+LIMIT 1;  
 
 
 
 -- MISSION 5
--- Your query here: Especies observadas con mas frecuencia
+-- Your query here;
 SELECT 
     species.scientific_name,
     species.common_name,
@@ -73,7 +74,7 @@ LIMIT 5;
 
 
 -- MISSION 6
--- Your query here: Personas que mas registros de observancion han realizado
+-- Your query here;
 SELECT 
     observations.observer,
     COUNT(*) AS total_observations
@@ -84,7 +85,7 @@ LIMIT 5;
 
 
 -- MISSION 7
--- Your query here: Especies que nunca han sido observadas
+-- Your query here;
 SELECT 
     species.scientific_name,
     species.common_name
@@ -96,12 +97,12 @@ ORDER BY species.scientific_name ASC;
 
 
 -- MISSION 8
--- Your query here: en que fechas se observaron mas especies diferentes
+-- Your query here;
 SELECT 
-    observation.observation_date,
-    COUNT(DISTINCT observation.species_id) AS distinct_species
+    observations.observation_date,
+    COUNT(DISTINCT observations.species_id) AS distinct_species
 FROM observations
-GROUP BY observation.observation_date
+GROUP BY observations.observation_date
 ORDER BY distinct_species DESC
 LIMIT 10;
 
